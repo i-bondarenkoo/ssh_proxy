@@ -4,7 +4,7 @@ import asyncio
 HOST = "192.168.15.65"
 USER = "admin"
 PASSWORD = "r0vgh0vfn"
-COMMAND = "whoami"
+COMMAND = "uname -a"
 
 
 async def main():
