@@ -45,5 +45,4 @@ if __name__ == "__main__":
         stop2 = time.time() - start2
         print(f"Время выполнения 2 команды, {stop2}")
 
-
-asyncio.run(main())
+    asyncio.run(main())
