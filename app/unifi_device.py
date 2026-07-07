@@ -39,9 +39,9 @@ if __name__ == "__main__":
         u1 = UnifiDevice("192.168.15.2")
         u2 = UnifiDevice("192.168.15.65")
         start = time.time()
-        task1 = await asyncio.create_task(u1.run_command("uname -a"))
+        task1 = asyncio.create_task(u1.run_command("uname -a"))
         list_tasks.append(task1)
-        task2 = await asyncio.create_task(u2.run_command("uname -a"))
+        task2 = asyncio.create_task(u2.run_command("uname -a"))
         list_tasks.append(task2)
         result = await asyncio.gather(*list_tasks)
         stop = time.time() - start
