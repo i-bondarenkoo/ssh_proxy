@@ -40,7 +40,7 @@ if __name__ == "__main__":
         stop1 = time.time() - start
         print(f"Время подключения к точке и выполнения 1 команды, {stop1}")
         start2 = time.time()
-        task2 = await u1.run_command("mca-dump")
+        task2 = await u1.run_command("info")
         print(task2)
         stop2 = time.time() - start2
         print(f"Время выполнения 2 команды, {stop2}")
