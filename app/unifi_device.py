@@ -35,17 +35,19 @@ class UnifiDevice:
 if __name__ == "__main__":
 
     async def main():
-
-        start = time.time()
+        list_tasks = []
         u1 = UnifiDevice("192.168.15.2")
-        task1 = await u1.run_command("uname -a")
-        print(task1)
-        stop1 = time.time() - start
-        print(f"Время подключения к точке и выполнения 1 команды, {stop1}")
-        start2 = time.time()
-        task2 = await u1.run_command("uname -a")
-        print(task2)
-        stop2 = time.time() - start2
-        print(f"Время выполнения 2 команды, {stop2}")
+        u2 = UnifiDevice("192.168.15.65")
+        start = time.time()
+        task1 = await asyncio.create_task(u1.run_command("uname -a"))
+        list_tasks.append(task1)
+        task2 = await asyncio.create_task(u2.run_command("uname -a"))
+        list_tasks.append(task2)
+        result = await asyncio.gather(*list_tasks)
+        stop = time.time() - start
+        print(result)
+        print(
+            f"Время выполнения 2 команд для разных точек, при конкурентности ={stop} "
+        )
 
     asyncio.run(main())
