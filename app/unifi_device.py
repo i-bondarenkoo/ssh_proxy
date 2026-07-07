@@ -51,6 +51,7 @@ if __name__ == "__main__":
         )
         u3 = UnifiDevice("192.168.15.1")
         task3 = u3.run_command("uname -a")
-        await task3
+        result = await task3
+        print(result)
 
     asyncio.run(main())
