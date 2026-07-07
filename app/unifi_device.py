@@ -50,8 +50,11 @@ if __name__ == "__main__":
             f"Время выполнения 2 команд для разных точек, при конкурентности ={stop} "
         )
         u3 = UnifiDevice("192.168.15.1")
+        st2 = time.time()
         task3 = u3.run_command("uname -a")
         result = await task3
+        stop2 = time.time() - st2
         print(result)
+        print(f"Время выполнения команды ={stop2}")
 
     asyncio.run(main())
