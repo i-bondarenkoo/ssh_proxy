@@ -34,13 +34,13 @@ if __name__ == "__main__":
     async def main():
 
         start = time.time()
-        u1 = UnifiDevice("192.168.15.65")
+        u1 = UnifiDevice("192.168.15.2")
         task1 = await u1.run_command("uname -a")
         print(task1)
         stop1 = time.time() - start
         print(f"Время подключения к точке и выполнения 1 команды, {stop1}")
         start2 = time.time()
-        task2 = await u1.run_command("info")
+        task2 = await u1.run_command("mca-dump")
         print(task2)
         stop2 = time.time() - start2
         print(f"Время выполнения 2 команды, {stop2}")
