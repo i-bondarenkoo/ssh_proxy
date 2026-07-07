@@ -49,5 +49,8 @@ if __name__ == "__main__":
         print(
             f"Время выполнения 2 команд для разных точек, при конкурентности ={stop} "
         )
+        u3 = UnifiDevice("192.168.15.1")
+        task3 = u3.run_command("uname -a")
+        await task3
 
     asyncio.run(main())
