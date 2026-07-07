@@ -15,7 +15,7 @@ async def main():
         known_hosts=None,
     ) as conn:
         result = await conn.run(COMMAND)
-        print("STDOUT - читает")
+        print("STDOUT - вывод команды")
         print(result.stdout)
         print("STRERR")
         print(result.stderr)
