@@ -32,7 +32,11 @@ class UnifiDevice:
                 try:
                     await self._get_ssh_session()
                     result = await self._connect.run(command)
-                    return result.stdout, result.stderr, result.exit_status
+                    return {
+                        "stdout": result.stdout,
+                        "stderr": result.stderr,
+                        "exit_status": result.exit_status,
+                    }
                     # print(result.stdout)
                     # print(result.stderr)
                     # print(result.exit_status)
@@ -40,7 +44,12 @@ class UnifiDevice:
                     self._connect = None
                     continue
                 except OSError:
-                    return f"Failed call connect, ip_address - {self.ip}, port - 22"
+                    return {
+                        "error": f"Failed call connect, ip_address - {self.ip}, port - 22"
+                    }
+            return {
+                "error": f"Неудалось установить ssh-соединение, количество попыток - 2"
+            }
 
 
 if __name__ == "__main__":

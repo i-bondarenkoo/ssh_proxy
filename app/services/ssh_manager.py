@@ -1,4 +1,4 @@
-from app.unifi_device import UnifiDevice
+from app.services.unifi_device import UnifiDevice
 import asyncio
 import time
 
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         task1 = await manager.run("192.168.15.2", "uname -a")
         print(task1)
         # list_tasks.append(task1)
-        # await asyncio.sleep(150)
+        await asyncio.sleep(150)
         task2 = await manager.run("192.168.15.2", "info")
         print(task2)
         # list_tasks.append(task2)
