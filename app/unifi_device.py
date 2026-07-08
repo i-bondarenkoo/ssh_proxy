@@ -28,7 +28,11 @@ class UnifiDevice:
                 try:
                     await self._get_ssh_session()
                     result = await self._connect.run(command)
-                    return result.stdout
+                    return (
+                        result.stdout
+                        if result.stdout
+                        else "Введеная команда не существует"
+                    )
                     # print(result.stdout)
                     # print(result.stderr)
                     # print(result.exit_status)
