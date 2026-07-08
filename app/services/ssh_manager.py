@@ -6,7 +6,7 @@ import time
 class SSHManager:
 
     def __init__(self):
-        self.devices: dict = {}
+        self.devices: dict[str, UnifiDevice] = {}
 
     async def run(self, ip: str, command: str):
         if ip not in self.devices:
