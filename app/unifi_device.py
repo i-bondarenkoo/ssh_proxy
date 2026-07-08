@@ -11,7 +11,7 @@ class UnifiDevice:
         self._connect = None
 
     async def _get_ssh_session(self):
-        if self._connect is None:
+        if self._connect is None or self._connect.is_closed():
             print(f"Я создаю новое подключение, по адресу {self.ip}")
             self._connect = await asyncssh.connect(
                 self.ip,
