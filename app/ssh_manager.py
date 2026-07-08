@@ -24,7 +24,7 @@ if __name__ == "__main__":
         task1 = await manager.run("192.168.15.2", "uname -a")
         print(task1)
         # list_tasks.append(task1)
-        await asyncio.sleep(150)
+        # await asyncio.sleep(150)
         task2 = await manager.run("192.168.15.2", "info")
         print(task2)
         # list_tasks.append(task2)
@@ -42,8 +42,6 @@ if __name__ == "__main__":
         # list_tasks.append(task7)
         # result = await asyncio.gather(*list_tasks)
         # print(result)
-        print(
-            f"Время выполнения 2 запросов ={time.time() - start} вместе с делеем 250 сек"
-        )
+        print(f"Время выполнения 2 последовательных запросов ={time.time() - start} ")
 
     asyncio.run(main())
