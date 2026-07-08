@@ -19,13 +19,15 @@ if __name__ == "__main__":
 
     async def main():
         manager = SSHManager()
-        list_tasks = []
+        # list_tasks = []
         start = time.time()
-        task1 = asyncio.create_task(manager.run("192.168.15.2", "uname -a"))
-        list_tasks.append(task1)
-        await asyncio.sleep(250)
-        task2 = asyncio.create_task(manager.run("192.168.15.2", "info"))
-        list_tasks.append(task2)
+        task1 = await manager.run("192.168.15.2", "uname -a")
+        print(task1)
+        # list_tasks.append(task1)
+        await asyncio.sleep(150)
+        task2 = await manager.run("192.168.15.2", "info")
+        print(task2)
+        # list_tasks.append(task2)
         # task2 = asyncio.create_task(manager.run("192.168.15.65", "uname -a"))
         # list_tasks.append(task2)
         # task3 = asyncio.create_task(manager.run("192.168.15.1", "uname -a"))
@@ -38,8 +40,8 @@ if __name__ == "__main__":
         # list_tasks.append(task6)
         # task7 = asyncio.create_task(manager.run("192.168.15.65", "jopa"))
         # list_tasks.append(task7)
-        result = await asyncio.gather(*list_tasks)
-        print(result)
+        # result = await asyncio.gather(*list_tasks)
+        # print(result)
         print(
             f"Время выполнения 2 запросов ={time.time() - start} вместе с делеем 250 сек"
         )
