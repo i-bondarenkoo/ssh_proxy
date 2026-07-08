@@ -31,7 +31,7 @@ class UnifiDevice:
                     return (
                         result.stdout
                         if result.stdout
-                        else "Введеная команда не существует"
+                        else "Тут пустая строка, вероятно введеная команда не поддерживается!"
                     )
                     # print(result.stdout)
                     # print(result.stderr)
