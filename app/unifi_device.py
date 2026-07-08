@@ -18,6 +18,10 @@ class UnifiDevice:
                 username=settings.username,
                 password=settings.password,
                 known_hosts=None,
+                # время для подключения к точке по ssh
+                connect_timeout=1,
+                # каждые 30 сек отправлять пинги на точку, для проверки соединения
+                keepalive_interval=30,
             )
         else:
             print("Подключение уже есть, я возьму его")
