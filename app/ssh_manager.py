@@ -23,7 +23,7 @@ if __name__ == "__main__":
         start = time.time()
         task1 = asyncio.create_task(manager.run("192.168.15.2", "uname -a"))
         list_tasks.append(task1)
-        asyncio.sleep(250)
+        await asyncio.sleep(250)
         task2 = asyncio.create_task(manager.run("192.168.15.2", "info"))
         list_tasks.append(task2)
         # task2 = asyncio.create_task(manager.run("192.168.15.65", "uname -a"))
