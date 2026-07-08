@@ -61,5 +61,13 @@ if __name__ == "__main__":
         await task4
         st4 = time.time() - s3
         print(f"Время выполнения команды с готовым ssh соединением ={st4}")
+        s5 = time.time()
+        res = await asyncio.gather(
+            u2.run_command("uname -a"),
+            u2.run_command("uname -a"),
+        )
+        print(
+            f"Две команды к 1 точке, через gather, время выполнения ={time.time() -s5}"
+        )
 
     asyncio.run(main())
