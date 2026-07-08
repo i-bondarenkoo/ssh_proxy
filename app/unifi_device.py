@@ -11,16 +11,19 @@ class UnifiDevice:
         self._connect = None
 
     async def _get_ssh_session(self):
-        if self._connect is None or self._connect.is_closed():
-            print(f"Я создаю новое подключение, по адресу {self.ip}")
-            self._connect = await asyncssh.connect(
-                self.ip,
-                username=settings.username,
-                password=settings.password,
-                known_hosts=None,
-            )
-        else:
-            print("Подключение уже есть, я возьму его")
+        try:
+            if self._connect is None or self._connect.is_closed():
+                print(f"Я создаю новое подключение, по адресу {self.ip}")
+                self._connect = await asyncssh.connect(
+                    self.ip,
+                    username=settings.username,
+                    password=settings.password,
+                    known_hosts=None,
+                )
+            else:
+                print("Подключение уже есть, я возьму его")
+        except OSError as e:
+            print(f"Connect call failed, ip_address - {self.ip}, port - 22")
 
     async def run_command(self, command: str):
         async with self._lock:

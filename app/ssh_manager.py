@@ -33,6 +33,8 @@ if __name__ == "__main__":
         list_tasks.append(task5)
         task6 = asyncio.create_task(manager.run("192.168.15.155", "uname -a"))
         list_tasks.append(task6)
+        task7 = asyncio.create_task(manager.run("192.168.15.65", "uname -a"))
+        list_tasks.append(task7)
         result = await asyncio.gather(*list_tasks)
         print(result)
         print(f"Время выполнения 4 запросов ={time.time() - start}")
