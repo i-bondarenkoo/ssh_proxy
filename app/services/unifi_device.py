@@ -51,6 +51,11 @@ class UnifiDevice:
                 "error": f"Неудалось установить ssh-соединение, количество попыток - 2"
             }
 
+    async def close(self):
+        if self._connect is not None and not self._connect.is_closed():
+            self._connect.close()
+            await self._connect.wait_closed()
+
 
 if __name__ == "__main__":
 

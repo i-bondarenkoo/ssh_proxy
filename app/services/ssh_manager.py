@@ -14,6 +14,10 @@ class SSHManager:
         result = await self.devices[ip].run_command(command)
         return result
 
+    async def close_all_ssh_sessions(self):
+        for ip, device in self.devices.items():
+            await device.close()
+
 
 if __name__ == "__main__":
 
