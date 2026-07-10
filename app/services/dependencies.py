@@ -7,7 +7,9 @@ def timer(func):
         start = time.time()
         result = await func(*args, **kwargs)
         stop = time.time()
-        logger.info(f"Время выполнения запроса - {stop - start} секунд")
+        logger.info(
+            f"Время выполнения запроса - {stop - start} секунд, точка - {args[0].ip}"
+        )
         return result
 
     return wrapper
