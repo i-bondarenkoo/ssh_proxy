@@ -9,7 +9,7 @@ from app.views.proxy import router as proxy_router
 async def lifespan(app: FastAPI):
     app.state.ssh_manager = SSHManager()
     yield
-    app.state.ssh_manager.close_all_ssh_sessions()
+    await app.state.ssh_manager.close_all_ssh_sessions()
 
 
 app = FastAPI(lifespan=lifespan)
