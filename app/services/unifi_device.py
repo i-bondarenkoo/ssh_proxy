@@ -2,6 +2,8 @@ import asyncssh
 import time
 from app.core.config import settings
 import asyncio
+from app.core.logging import logger
+from app.services.dependencies import timer
 
 
 class UnifiDevice:
@@ -12,7 +14,7 @@ class UnifiDevice:
 
     async def _get_ssh_session(self):
         if self._connect is None or self._connect.is_closed():
-            print(f"Я создаю новое подключение, по адресу {self.ip}")
+            logger.info(f"Create a new ssh connection to - {self.ip}")
             self._connect = await asyncssh.connect(
                 self.ip,
                 username=settings.username,
@@ -24,8 +26,9 @@ class UnifiDevice:
                 keepalive_interval=30,
             )
         else:
-            print("Подключение уже есть, я возьму его")
+            logger.info("Connect alredy, take it")
 
+    @timer
     async def run_command(self, command: str):
         async with self._lock:
             for _ in range(2):
@@ -41,12 +44,15 @@ class UnifiDevice:
                     # print(result.stderr)
                     # print(result.exit_status)
                 except asyncssh.Error:
+                    logger.warning("Incorrect ssh connection, 1 attempt remaining")
                     self._connect = None
                     continue
                 except OSError:
+                    logger.warning("Incorrect ip_address has been entered")
                     return {
                         "error": f"Failed call connect, ip_address - {self.ip}, port - 22"
                     }
+            logger.error("Failed to ssh-connection, count attempy - 2")
             return {
                 "error": f"Неудалось установить ssh-соединение, количество попыток - 2"
             }
@@ -55,6 +61,7 @@ class UnifiDevice:
         if self._connect is not None and not self._connect.is_closed():
             self._connect.close()
             await self._connect.wait_closed()
+            logger.info("Application was closed, try to close ssh-connection")
 
 
 if __name__ == "__main__":
