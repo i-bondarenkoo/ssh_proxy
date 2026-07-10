@@ -14,7 +14,7 @@ class UnifiDevice:
 
     async def _get_ssh_session(self):
         if self._connect is None or self._connect.is_closed():
-            logger.info(f"Create a new ssh connection to - {self.ip}")
+            logger.info(f"Устанавливаем SSH соединение с - {self.ip}")
             self._connect = await asyncssh.connect(
                 self.ip,
                 username=settings.username,
@@ -26,7 +26,7 @@ class UnifiDevice:
                 keepalive_interval=30,
             )
         else:
-            logger.info("Connect alredy, take it")
+            logger.info("Соединение уже установлено, переиспользуем")
 
     @timer
     async def run_command(self, command: str):
@@ -44,7 +44,9 @@ class UnifiDevice:
                     # print(result.stderr)
                     # print(result.exit_status)
                 except asyncssh.Error:
-                    logger.warning("Incorrect ssh connection, 1 attempt remaining")
+                    logger.warning(
+                        "Проблема с установлением SSH соединения, попыток - 1"
+                    )
                     self._connect = None
                     continue
                 except OSError:
@@ -52,7 +54,7 @@ class UnifiDevice:
                     return {
                         "error": f"Failed call connect, ip_address - {self.ip}, port - 22"
                     }
-            logger.error("Failed to ssh-connection, count attempy - 2")
+            logger.error("Неудалось установить ssh-соединение, количество попыток - 2")
             return {
                 "error": f"Неудалось установить ssh-соединение, количество попыток - 2"
             }
@@ -61,7 +63,7 @@ class UnifiDevice:
         if self._connect is not None and not self._connect.is_closed():
             self._connect.close()
             await self._connect.wait_closed()
-            logger.info("Application was closed, try to close ssh-connection")
+            logger.info("Приложение  закрывается, закрываем активные SSH подключения")
 
 
 if __name__ == "__main__":
