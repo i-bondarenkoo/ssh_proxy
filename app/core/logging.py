@@ -9,6 +9,6 @@ logging.basicConfig(
     level=logging.INFO,
     handlers=[
         logging.StreamHandler(),
-        RotatingFileHandler("/opt/ssh_proxy/app.log", maxBytes=10000000, backupCount=5),
+        RotatingFileHandler("/opt/log/app.log", maxBytes=10000000, backupCount=5),
     ],
 )
