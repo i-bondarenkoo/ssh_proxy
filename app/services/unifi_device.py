@@ -50,7 +50,7 @@ class UnifiDevice:
                     self._connect = None
                     continue
                 except OSError:
-                    logger.warning("Введен не существующий ip_address")
+                    logger.warning("Unifi точка не доступна")
                     return {
                         "error": f"Failed call connect, ip_address - {self.ip}, port - 22"
                     }
